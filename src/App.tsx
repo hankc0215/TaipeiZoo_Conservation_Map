@@ -1695,7 +1695,7 @@ export default function App() {
                 <RegionFeatureSection region={activeData} />
                 <div className="mt-5 grid gap-5 xl:grid-cols-[1fr_1.05fr]">
                   <div className="grid gap-3 md:grid-cols-2">
-                    {activeData.species?.map((item) => (
+                    {(activeData.species ?? []).map((item) => (
                       <SpeciesCard
                         key={item.name}
                         item={item}
