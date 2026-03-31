@@ -1462,8 +1462,9 @@ export default function App() {
   }, []);
 
   const selectedSpecies = useMemo(() => {
-    if (!activeData?.species?.length) return null;
-    return activeData.species.find((item) => item.name === selectedSpeciesName) || activeData.species[0];
+    const speciesList = activeData?.species ?? [];
+    if (speciesList.length === 0) return null;
+    return speciesList.find((item) => item.name === selectedSpeciesName) ?? speciesList[0] ?? null;
   }, [activeData, selectedSpeciesName]);
 
   useEffect(() => {
@@ -1481,10 +1482,11 @@ export default function App() {
   }, [filteredRegions, activeRegion]);
 
   useEffect(() => {
-    if (activeData?.species?.length) {
+    const speciesList = activeData?.species ?? [];
+    if (speciesList.length > 0) {
       setSelectedSpeciesName((prev) => {
-        const exists = activeData.species?.some((item) => item.name === prev);
-        return exists ? prev : activeData.species[0].name;
+        const exists = speciesList.some((item) => item.name === prev);
+        return exists ? prev : (speciesList[0]?.name ?? null);
       });
     } else {
       setSelectedSpeciesName(null);
